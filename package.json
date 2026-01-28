@@ -1,0 +1,25 @@
+{
+  "name": "esource-health-ledger-api",
+  "version": "1.0.0",
+  "description": "Backend API for eSource Health Ledger - System of Record",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node src/server.js"
+  },
+  "keywords": [
+    "health",
+    "ledger",
+    "api"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "pg": "^8.11.3",
+    "dotenv": "^16.3.1",
+    "jsonwebtoken": "^9.0.2",
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5"
+  }
+}
