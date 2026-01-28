@@ -47,26 +47,20 @@ jobs:
           # Exit with 1 if any forbidden patterns are found
           FOUND_ISSUES=0
           
-          # Check for @base44/* imports
+          # Check for @base44/* imports (this covers @base44/sdk and all other @base44/* packages)
           if grep -r --include="*.js" --include="*.jsx" --include="*.ts" --include="*.tsx" "@base44/" frontend/ 2>/dev/null; then
             echo "ERROR: Found @base44/* imports in frontend code"
             FOUND_ISSUES=1
           fi
           
-          # Check for @base44/sdk specifically
-          if grep -r --include="*.js" --include="*.jsx" --include="*.ts" --include="*.tsx" "@base44/sdk" frontend/ 2>/dev/null; then
-            echo "ERROR: Found @base44/sdk imports in frontend code"
-            FOUND_ISSUES=1
-          fi
-          
-          # Check for base44 identifier
+          # Check for base44 identifier (word boundary ensures we match 'base44' as a standalone identifier)
           if grep -r --include="*.js" --include="*.jsx" --include="*.ts" --include="*.tsx" -w "base44" frontend/ 2>/dev/null; then
             echo "ERROR: Found 'base44' identifier in frontend code"
             FOUND_ISSUES=1
           fi
           
-          # Check for User.me
-          if grep -r --include="*.js" --include="*.jsx" --include="*.ts" --include="*.tsx" "User\.me" frontend/ 2>/dev/null; then
+          # Check for User.me pattern (matches User.me property access)
+          if grep -r --include="*.js" --include="*.jsx" --include="*.ts" --include="*.tsx" -E "User\.me" frontend/ 2>/dev/null; then
             echo "ERROR: Found 'User.me' in frontend code"
             FOUND_ISSUES=1
           fi

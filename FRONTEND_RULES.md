@@ -6,10 +6,9 @@ This repository enforces strict rules against using certain packages and pattern
 
 The following patterns are **strictly forbidden** in the `frontend/` directory:
 
-1. **`@base44/*`** - Any imports from @base44 namespace packages
-2. **`@base44/sdk`** - Specifically the @base44/sdk package
-3. **`base44`** - The base44 identifier in any context
-4. **`User.me`** - The User.me property access pattern
+1. **`@base44/*`** - Any imports from @base44 namespace packages (including @base44/sdk)
+2. **`base44`** - The base44 identifier when used as a standalone variable/constant name
+3. **`User.me`** - The User.me property access pattern
 
 ## Enforcement
 

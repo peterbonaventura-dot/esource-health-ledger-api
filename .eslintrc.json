@@ -21,7 +21,7 @@
           {
             "patterns": [
               {
-                "group": ["@base44/*", "@base44/sdk"],
+                "group": ["@base44/*"],
                 "message": "@base44/* packages are forbidden in frontend code"
               }
             ]
