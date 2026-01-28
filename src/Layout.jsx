@@ -1,17 +1,34 @@
-import React, { useState, useEffect } from 'react';
-// PHASE 1: Base44 import disabled
-// import { base44 } from '@/api/base44Client'; // DISABLED
+import React from 'react';
+import { useAuth } from './hooks/useAuth';
 
+// Phase 2: Layout owns global auth state via useAuth hook
 export function Layout({ children }) {
-  const [user, setUser] = useState(null);
+  const { user, loading, error } = useAuth();
 
-  // PHASE 1: Auth loop broken - base44.auth.me() removed
-  useEffect(() => {
-    // Original: base44.auth.me().then(setUser);
-    // Phase 1: Stubbed - no auth call
-    console.log('Phase 1: Layout auth disabled');
-    setUser(null); // Temporary: set to null
-  }, []);
+  if (loading) {
+    return (
+      <div>
+        <nav>
+          <h1>eSource Health Ledger</h1>
+        </nav>
+        <main>
+          <div>Loading authentication...</div>
+        </main>
+      </div>
+    );
+  }
+
+  if (error) {
+    console.error('Auth error in Layout:', error);
+  }
+
+  // Clone children and pass user prop
+  const childrenWithProps = React.Children.map(children, child => {
+    if (React.isValidElement(child)) {
+      return React.cloneElement(child, { user });
+    }
+    return child;
+  });
 
   return (
     <div>
@@ -19,7 +36,7 @@ export function Layout({ children }) {
         <h1>eSource Health Ledger</h1>
         {user && <span>User: {user.name}</span>}
       </nav>
-      <main>{children}</main>
+      <main>{childrenWithProps}</main>
     </div>
   );
 }

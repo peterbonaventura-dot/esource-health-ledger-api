@@ -1,54 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Layout } from './Layout';
 
-// PHASE 1: Base44 imports removed
-// import { base44 } from '@/api/base44Client'; // DISABLED
-
+// Phase 2: Auth is now owned by Layout component
 function App() {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
-
-  // PHASE 1: Auth loop broken - base44.auth.me() call removed
-  useEffect(() => {
-    // Original: base44.auth.me().then(setUser);
-    // Phase 1: Stubbed out - no Base44 auth
-    console.log('Phase 1: Base44 auth disabled - skipping auth check');
-    setLoading(false);
-    // Optionally set user to null or fetch from /api/auth/me
-    // setUser(null);
-  }, []);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <Router>
       <div className="app">
-        <header>
-          <h1>eSource Health Ledger</h1>
-          {user && <div>Welcome, {user.name}</div>}
-        </header>
-        
-        <main>
+        <Layout>
           <Routes>
-            <Route path="/" element={<HomePage user={user} />} />
+            <Route path="/" element={<HomePage />} />
           </Routes>
-        </main>
+        </Layout>
       </div>
     </Router>
   );
 }
 
+// Phase 2: HomePage receives user from Layout via props
 function HomePage({ user }) {
   return (
     <div>
       <h2>Welcome to eSource Health Ledger</h2>
-      <p>Phase 1: Base44 disabled. App loads without redirect.</p>
+      <p>Phase 2: Global auth via Render API</p>
       {user ? (
-        <p>User: {user.name}</p>
+        <p>Authenticated as: {user.name || user.email || 'User'}</p>
       ) : (
-        <p>Not authenticated (expected in Phase 1)</p>
+        <p>Not authenticated</p>
       )}
     </div>
   );

@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react';
-// PHASE 1: Base44 import disabled
-// import { base44 } from '@/api/base44Client'; // DISABLED
+import React from 'react';
 
-export default function CampIndependenceHome() {
+// Phase 2: Receives user from Layout - no direct auth calls
+export default function CampIndependenceHome({ user }) {
   return (
     <div>
       <h2>Camp Independence Home</h2>
-      <p>Phase 1: Empty state</p>
+      {user ? (
+        <p>Welcome, {user.name || 'User'}</p>
+      ) : (
+        <p>Please log in to access this page</p>
+      )}
     </div>
   );
 }
