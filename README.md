@@ -14,5 +14,8 @@ Backend API replacing Base44.
 - Hosted on Render
 - PostgreSQL required
 
-## Frontend
+## Frontend Integration
+
 Frontend connects via `VITE_API_URL`.
+
+The API client (`src/services/apiClient.js`) provides a complete replacement for Base44. See [FRONTEND_INTEGRATION.md](./FRONTEND_INTEGRATION.md) for migration instructions.
