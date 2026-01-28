@@ -1,0 +1,44 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "overrides": [
+    {
+      "files": ["frontend/**/*"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["@base44/*", "@base44/sdk"],
+                "message": "@base44/* packages are forbidden in frontend code"
+              }
+            ]
+          }
+        ],
+        "no-restricted-syntax": [
+          "error",
+          {
+            "selector": "Identifier[name='base44']",
+            "message": "'base44' identifier is forbidden in frontend code"
+          },
+          {
+            "selector": "MemberExpression[object.name='User'][property.name='me']",
+            "message": "'User.me' is forbidden in frontend code"
+          }
+        ]
+      }
+    }
+  ]
+}

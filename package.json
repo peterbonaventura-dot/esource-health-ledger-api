@@ -1,0 +1,12 @@
+{
+  "name": "esource-health-ledger-api",
+  "version": "1.0.0",
+  "description": "Health Ledger API with enforced frontend rules",
+  "scripts": {
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:frontend": "eslint frontend --ext .js,.jsx,.ts,.tsx"
+  },
+  "devDependencies": {
+    "eslint": "^8.50.0"
+  }
+}

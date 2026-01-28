@@ -1,0 +1,80 @@
+name: Enforce Frontend Rules
+
+on:
+  pull_request:
+    paths:
+      - 'frontend/**'
+      - '.eslintrc.json'
+      - '.github/workflows/enforce-frontend-rules.yml'
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'frontend/**'
+      - '.eslintrc.json'
+      - '.github/workflows/enforce-frontend-rules.yml'
+
+jobs:
+  lint:
+    name: ESLint Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Run ESLint on frontend
+        run: npm run lint:frontend
+        continue-on-error: false
+
+  grep-check:
+    name: Grep Check for Forbidden Patterns
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Check for forbidden patterns in frontend
+        run: |
+          echo "Checking for forbidden patterns in frontend directory..."
+          
+          # Exit with 1 if any forbidden patterns are found
+          FOUND_ISSUES=0
+          
+          # Check for @base44/* imports
+          if grep -r --include="*.js" --include="*.jsx" --include="*.ts" --include="*.tsx" "@base44/" frontend/ 2>/dev/null; then
+            echo "ERROR: Found @base44/* imports in frontend code"
+            FOUND_ISSUES=1
+          fi
+          
+          # Check for @base44/sdk specifically
+          if grep -r --include="*.js" --include="*.jsx" --include="*.ts" --include="*.tsx" "@base44/sdk" frontend/ 2>/dev/null; then
+            echo "ERROR: Found @base44/sdk imports in frontend code"
+            FOUND_ISSUES=1
+          fi
+          
+          # Check for base44 identifier
+          if grep -r --include="*.js" --include="*.jsx" --include="*.ts" --include="*.tsx" -w "base44" frontend/ 2>/dev/null; then
+            echo "ERROR: Found 'base44' identifier in frontend code"
+            FOUND_ISSUES=1
+          fi
+          
+          # Check for User.me
+          if grep -r --include="*.js" --include="*.jsx" --include="*.ts" --include="*.tsx" "User\.me" frontend/ 2>/dev/null; then
+            echo "ERROR: Found 'User.me' in frontend code"
+            FOUND_ISSUES=1
+          fi
+          
+          if [ $FOUND_ISSUES -eq 1 ]; then
+            echo "❌ CI FAILED: Forbidden patterns detected in frontend code"
+            exit 1
+          else
+            echo "✅ No forbidden patterns found"
+            exit 0
+          fi
