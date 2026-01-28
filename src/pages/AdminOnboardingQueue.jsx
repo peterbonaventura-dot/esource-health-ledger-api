@@ -27,7 +27,7 @@ function AdminOnboardingQueue({ user }) {
       const allUsers = await apiClient.getUsers();
       
       // Filter to show only pending onboarding users
-      const pendingUsers = allUsers.filter(u => u.status === 'pending' || u.status === 'onboarding');
+      const pendingUsers = allUsers.filter(user => user.status === 'pending' || user.status === 'onboarding');
       setUsers(pendingUsers);
     } catch (err) {
       console.error('Failed to load users:', err);
@@ -127,27 +127,27 @@ function AdminOnboardingQueue({ user }) {
             </tr>
           </thead>
           <tbody>
-            {users.map((u) => (
-              <tr key={u.id}>
-                <td>{u.name}</td>
-                <td>{u.email}</td>
-                <td>{u.status}</td>
+            {users.map((user) => (
+              <tr key={user.id}>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>{user.status}</td>
                 <td>
                   <button 
-                    onClick={() => handleApprove(u.id)}
-                    disabled={processingId === u.id}
+                    onClick={() => handleApprove(user.id)}
+                    disabled={processingId === user.id}
                   >
-                    {processingId === u.id ? 'Processing...' : 'Approve'}
+                    {processingId === user.id ? 'Processing...' : 'Approve'}
                   </button>
                   <button 
-                    onClick={() => handleAssignDocuments(u.id)}
-                    disabled={processingId === u.id}
+                    onClick={() => handleAssignDocuments(user.id)}
+                    disabled={processingId === user.id}
                   >
                     Assign Docs
                   </button>
                   <button 
-                    onClick={() => handleSendNotification(u.id)}
-                    disabled={processingId === u.id}
+                    onClick={() => handleSendNotification(user.id)}
+                    disabled={processingId === user.id}
                   >
                     Send Notification
                   </button>
