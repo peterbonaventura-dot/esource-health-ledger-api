@@ -19,6 +19,8 @@ jobs:
   lint:
     name: ESLint Check
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v3
       
@@ -37,6 +39,8 @@ jobs:
   grep-check:
     name: Grep Check for Forbidden Patterns
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v3
       
