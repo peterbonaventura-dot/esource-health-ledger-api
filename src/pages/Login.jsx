@@ -16,7 +16,10 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Placeholder - in production, this would call an auth API
-    console.log('Login attempted with:', { email, password });
+    // Note: Do not log passwords in production
+    if (import.meta.env.DEV) {
+      console.log('Login attempted for email:', email);
+    }
     alert('This is a placeholder login page. In production, this would authenticate the user.');
   };
 
@@ -45,10 +48,11 @@ export default function Login() {
         
         <form onSubmit={handleSubmit}>
           <div style={{ marginBottom: '1rem' }}>
-            <label style={{ display: 'block', marginBottom: '0.5rem' }}>
+            <label htmlFor="email" style={{ display: 'block', marginBottom: '0.5rem' }}>
               Email
             </label>
             <input
+              id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -60,14 +64,16 @@ export default function Login() {
                 fontSize: '1rem'
               }}
               placeholder="your@email.com"
+              aria-label="Email address"
             />
           </div>
 
           <div style={{ marginBottom: '1.5rem' }}>
-            <label style={{ display: 'block', marginBottom: '0.5rem' }}>
+            <label htmlFor="password" style={{ display: 'block', marginBottom: '0.5rem' }}>
               Password
             </label>
             <input
+              id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -79,6 +85,7 @@ export default function Login() {
                 fontSize: '1rem'
               }}
               placeholder="••••••••"
+              aria-label="Password"
             />
           </div>
 

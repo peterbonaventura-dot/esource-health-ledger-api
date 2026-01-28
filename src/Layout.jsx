@@ -17,7 +17,7 @@ import { useAuth } from "@/hooks/useAuth";
  * - No page should call auth directly
  */
 export default function Layout() {
-  const { user, loading } = useAuth();
+  const { user, loading, error } = useAuth();
 
   // Show loading state while checking authentication
   if (loading) {
@@ -36,6 +36,7 @@ export default function Layout() {
   }
 
   // Redirect to login if not authenticated
+  // Note: error is available but we treat any non-authenticated state the same
   if (!user) {
     return <Navigate to="/login" replace />;
   }
