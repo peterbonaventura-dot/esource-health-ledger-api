@@ -94,8 +94,7 @@ See `src/services/apiClient.js` for the complete API reference. Key methods incl
 - `apiClient.approveUser(userId, approvalData)`
 
 ### Notifications
-- `apiClient.getNotifications()`
-- `apiClient.createNotification(notificationData)`
+- `apiClient.sendOrientationNotification(notificationData)`
 
 ## Migration Checklist
 

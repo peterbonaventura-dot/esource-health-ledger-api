@@ -61,13 +61,26 @@ class ApiClient {
       const response = await fetch(url, config);
       
       if (!response.ok) {
-        const error = await response.json().catch(() => ({ error: 'Request failed' }));
-        throw new Error(error.error || `HTTP ${response.status}`);
+        // Try to parse error as JSON if content-type suggests it
+        const contentType = response.headers.get('content-type');
+        let errorMessage = `HTTP ${response.status}: ${response.statusText}`;
+        
+        if (contentType && contentType.includes('application/json')) {
+          try {
+            const errorData = await response.json();
+            errorMessage = errorData.error || errorData.message || errorMessage;
+          } catch {
+            // Failed to parse JSON, use default message
+          }
+        }
+        
+        throw new Error(errorMessage);
       }
 
       return await response.json();
     } catch (error) {
-      console.error('API request failed:', error);
+      // Log error without exposing sensitive request details
+      console.error('API request failed:', error.message || error);
       throw error;
     }
   }
@@ -182,20 +195,12 @@ class ApiClient {
   // ==================== Notification Endpoints ====================
 
   /**
-   * Get all notifications
-   * @returns {Promise<Array>}
-   */
-  async getNotifications() {
-    return await this.request('/notifications');
-  }
-
-  /**
-   * Create a new notification
+   * Send orientation notification
    * @param {object} notificationData - Notification data
-   * @returns {Promise<object>}
+   * @returns {Promise<{emailSent: boolean}>}
    */
-  async createNotification(notificationData) {
-    return await this.request('/notifications', {
+  async sendOrientationNotification(notificationData) {
+    return await this.request('/notifications/orientation', {
       method: 'POST',
       body: JSON.stringify(notificationData),
     });
