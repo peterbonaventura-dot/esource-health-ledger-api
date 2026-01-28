@@ -1,0 +1,29 @@
+import { useEffect, useState } from "react";
+import { me } from "@/services/apiClient";
+
+/**
+ * Global authentication hook
+ * This is the ONLY place where auth state should be resolved
+ * 
+ * @returns {Object} { user, loading, error }
+ * - user: Current user object or null if not authenticated
+ * - loading: Boolean indicating if auth check is in progress
+ * - error: Error object if auth check failed
+ */
+export function useAuth() {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    me()
+      .then(setUser)
+      .catch((err) => {
+        setUser(null);
+        setError(err);
+      })
+      .finally(() => setLoading(false));
+  }, []);
+
+  return { user, loading, error };
+}
