@@ -7,7 +7,7 @@ const sendEmail = async (to, subject, body) => {
   console.log('📧 Email (simulated):', {
     to,
     subject,
-    body: body.substring(0, 50) + '...'
+    body: body ? body.substring(0, 50) + '...' : '(empty)'
   });
   
   // Simulate async operation

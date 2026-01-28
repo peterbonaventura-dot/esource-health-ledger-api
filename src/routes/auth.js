@@ -1,9 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcrypt');
 const { authenticate } = require('../middleware/auth');
-const { generateToken } = require('../services/tokenService');
-const db = require('../db');
 
 // POST /auth/login - User login
 router.post('/login', async (req, res) => {

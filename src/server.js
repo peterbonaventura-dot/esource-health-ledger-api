@@ -8,6 +8,12 @@ const startServer = async () => {
   try {
     console.log('🚀 Starting eSource Health Ledger API...');
     
+    // Validate required environment variables
+    if (!process.env.JWT_SECRET) {
+      console.warn('⚠️  JWT_SECRET not configured - authentication will not work');
+      console.warn('   Please set JWT_SECRET in your .env file');
+    }
+    
     // Test database connection (non-blocking)
     await db.testConnection().catch(err => {
       console.warn('⚠️  Database connection failed, but server will start anyway');
