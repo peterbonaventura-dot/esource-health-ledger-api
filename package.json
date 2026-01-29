@@ -9,6 +9,17 @@
   "keywords": ["health", "ledger", "api"],
   "author": "",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/peterbonaventura-dot/esource-health-ledger-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/peterbonaventura-dot/esource-health-ledger-api/issues"
+  },
+  "homepage": "https://github.com/peterbonaventura-dot/esource-health-ledger-api#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "dependencies": {
     "express": "^4.18.2"
   }
