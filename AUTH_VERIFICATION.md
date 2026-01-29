@@ -43,16 +43,16 @@ Two test scripts are provided to verify the endpoints:
 
 **Usage:**
 ```bash
-node test-auth-endpoints.js <backend-url>
+node test-auth-endpoints.cjs <backend-url>
 ```
 
 **Examples:**
 ```bash
 # Test local backend
-node test-auth-endpoints.js http://localhost:3000
+node test-auth-endpoints.cjs http://localhost:3000
 
 # Test deployed backend
-node test-auth-endpoints.js https://your-api.onrender.com
+node test-auth-endpoints.cjs https://your-api.onrender.com
 ```
 
 **Features:**
@@ -203,6 +203,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 1. **JWT Token Security:**
    - Tokens stored in localStorage (accessible only to same origin)
+   - **⚠️ XSS Vulnerability:** localStorage is vulnerable to XSS attacks. Any malicious JavaScript can access tokens.
+   - **Mitigation:** Implement Content Security Policy (CSP), sanitize all user inputs, and use modern frameworks with XSS protection
    - Automatic expiry checking
    - Invalid tokens automatically removed
 
@@ -260,14 +262,14 @@ Both test scripts support CI/CD pipelines:
 ```yaml
 - name: Test Authentication Endpoints
   run: |
-    node test-auth-endpoints.js ${{ secrets.BACKEND_URL }}
+    node test-auth-endpoints.cjs ${{ secrets.BACKEND_URL }}
 ```
 
 **Example in npm scripts:**
 ```json
 {
   "scripts": {
-    "test:auth": "node test-auth-endpoints.js http://localhost:3000"
+    "test:auth": "node test-auth-endpoints.cjs http://localhost:3000"
   }
 }
 ```

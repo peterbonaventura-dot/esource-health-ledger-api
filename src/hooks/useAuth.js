@@ -121,16 +121,19 @@ export function useAuth() {
       setLoading(true);
       
       // Call logout endpoint if it exists
-      await fetch('/api/auth/logout', {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${getToken()}`,
-        },
-      }).catch(() => {
-        // Ignore errors from logout endpoint
-      });
+      const token = getToken();
+      if (token) {
+        await fetch('/api/auth/logout', {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+        }).catch(() => {
+          // Ignore errors from logout endpoint
+        });
+      }
       
       // Clear local state and token
       removeToken();

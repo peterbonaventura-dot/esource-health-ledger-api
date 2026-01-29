@@ -43,7 +43,7 @@ export function getToken() {
     const expiry = localStorage.getItem(TOKEN_EXPIRY_KEY);
     if (expiry) {
       const expiryTime = parseInt(expiry, 10) * 1000; // Convert to milliseconds
-      if (Date.now() >= expiryTime) {
+      if (Date.now() > expiryTime) {
         // Token is expired, remove it
         removeToken();
         return null;

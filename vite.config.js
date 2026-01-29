@@ -5,7 +5,6 @@ import react from '@vitejs/plugin-react'
 // Base44 plugin has been removed from the build
 
 export default defineConfig({
-  logLevel: 'error',
   plugins: [react()],
   resolve: {
     alias: {

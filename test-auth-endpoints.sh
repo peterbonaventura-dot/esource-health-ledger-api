@@ -107,7 +107,7 @@ if [ "$HTTP_CODE" = "200" ] || [ "$HTTP_CODE" = "201" ]; then
       PAYLOAD=$(echo "$JWT_TOKEN" | cut -d. -f2)
       # Add padding if needed
       PADDING_LENGTH=$((4 - ${#PAYLOAD} % 4))
-      if [ $PADDING_LENGTH -lt 4 ]; then
+      if [ $PADDING_LENGTH -ne 4 ]; then
         PAYLOAD="${PAYLOAD}$(printf '=%.0s' $(seq 1 $PADDING_LENGTH))"
       fi
       

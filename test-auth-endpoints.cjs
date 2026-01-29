@@ -8,11 +8,11 @@
  * 2. /auth/me works with Authorization: Bearer <token>
  * 
  * Usage:
- *   node test-auth-endpoints.js <backend-url>
+ *   node test-auth-endpoints.cjs <backend-url>
  *   
  * Example:
- *   node test-auth-endpoints.js http://localhost:3000
- *   node test-auth-endpoints.js https://your-api.onrender.com
+ *   node test-auth-endpoints.cjs http://localhost:3000
+ *   node test-auth-endpoints.cjs https://your-api.onrender.com
  */
 
 const https = require('https');
@@ -276,10 +276,10 @@ async function main() {
   if (!baseUrl) {
     logError('Please provide the backend URL as an argument');
     console.log('\nUsage:');
-    console.log('  node test-auth-endpoints.js <backend-url>');
+    console.log('  node test-auth-endpoints.cjs <backend-url>');
     console.log('\nExamples:');
-    console.log('  node test-auth-endpoints.js http://localhost:3000');
-    console.log('  node test-auth-endpoints.js https://your-api.onrender.com');
+    console.log('  node test-auth-endpoints.cjs http://localhost:3000');
+    console.log('  node test-auth-endpoints.cjs https://your-api.onrender.com');
     process.exit(1);
   }
 
