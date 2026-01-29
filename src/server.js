@@ -3,6 +3,13 @@ const express = require('express');
 const cors = require('cors');
 const errorHandler = require('./middleware/errorHandler');
 
+// Validate required environment variables
+if (!process.env.JWT_SECRET) {
+  console.error('ERROR: JWT_SECRET environment variable is not set!');
+  console.error('Please set JWT_SECRET in your .env file or environment variables.');
+  process.exit(1);
+}
+
 // Import routes
 const authRoutes = require('./routes/auth');
 const residentsRoutes = require('./routes/residents');

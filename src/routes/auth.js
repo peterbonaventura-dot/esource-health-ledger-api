@@ -6,6 +6,8 @@ const authMiddleware = require('../middleware/auth');
 const router = express.Router();
 
 // Mock user database (in production, this would be a real database)
+// WARNING: These are test credentials only. Remove before production deployment!
+// Default test users: admin/admin123 and user/user123
 const users = [
   {
     id: 1,
