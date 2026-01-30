@@ -5,6 +5,13 @@
  * 
  * This script tests the connection to the backend API
  * and verifies that the health endpoint is responding.
+ * 
+ * Requirements:
+ * - Node.js 18+ (uses native fetch API)
+ * 
+ * Note: This script reads VITE_API_URL from process.env.
+ * To use a different API URL, run with:
+ *   VITE_API_URL=https://your-api-url.com node verify-backend.js
  */
 
 const API_URL = process.env.VITE_API_URL || 'https://esourcehealthledger.com';
