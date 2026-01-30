@@ -1,0 +1,16 @@
+{
+  "name": "esource-health-ledger-api",
+  "version": "1.0.0",
+  "description": "eSource Health Ledger API",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node src/server.js"
+  },
+  "keywords": ["health", "ledger", "api"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
