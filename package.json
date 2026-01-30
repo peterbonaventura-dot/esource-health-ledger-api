@@ -2,9 +2,9 @@
   "name": "esource-health-ledger-api",
   "version": "1.0.0",
   "description": "eSource Health Ledger API",
-  "main": "api/server.js",
+  "main": "src/server.js",
   "scripts": {
-    "start": "node api/server.js"
+    "start": "node src/server.js"
   },
   "keywords": ["health", "ledger", "api"],
   "author": "",
