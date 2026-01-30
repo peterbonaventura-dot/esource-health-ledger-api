@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
   });
 });
 
-// Error handling middleware
+// Error handling middleware (4 parameters required for Express to recognize it as error handler)
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: 'Internal server error' });
